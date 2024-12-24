@@ -5,7 +5,7 @@ process metaspades {
         tuple val(id), path(reads1), path(reads2) 
 
     output:
-        tuple val(id), path("metaspades_results/${id}_contigs.fasta"), emit: "contigs"
+        tuple val(id), path("metaspades_results/${id}/${id}_contigs.fa"), emit: "contigs"
 
     script:
     """
@@ -28,5 +28,8 @@ process metaspades {
             -m ${task.memory.toMega()} \\
             -o metaspades_results/${id}
     fi
+
+    mv metaspades_results/${id}/scaffolds.fasta metaspades_results/${id}/${id}.contigs.fa
+
     """
 }

@@ -15,6 +15,7 @@ include {fastqc} from "./nextflow/modules/fastqc"
 include {trimming} from "./nextflow/subworkflow/trimming"
 include {taxonomic_classification} from "./nextflow/subworkflow/taxonomic_classification"
 include {assembly} from "./nextflow/subworkflow/assembly"
+include {blast_annotation} from "./nextflow/subworkflow/blast_annotation.nf"
 // Validate input parameters
 // WorkflowNextreo.initialise(params, log)
 
@@ -29,20 +30,22 @@ if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input sample
 
 
 
-workflow Nextreo {
+workflow Nextreo {                                                                   
 
     // Input parsing from the previous process
     input_parser(ch_input)
 
     // Capture the output channels from input_parser
-    ch_reads1 = input_parser.out.reads1
+    ch_reads1 = input_parser.out.reads1     
     ch_reads2 = input_parser.out.reads2
 
     // Call the fastqc process with the combined channel
     fastqc(ch_reads1.join(ch_reads2))
     trimming(ch_reads1, ch_reads2)
-    taxonomic_classification(ch_reads1, ch_reads2)
+    // taxonomic_classification(ch_reads1, ch_reads2)
     assembly(trimming.out.clean_reads1, trimming.out.clean_reads2)
+   
+    blast_annotation(assembly.out.contigs)
 
 }
 
