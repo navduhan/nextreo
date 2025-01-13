@@ -49,7 +49,6 @@ workflow Nextreo {
    
     blast_annotation(assembly.out.contigs)
     consensus(ch_reads1, ch_reads2, blast_annotation.out.blastn_results_viruses)
-
     annotation(consensus.out.consensus_genomes)
 
 

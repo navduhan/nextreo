@@ -11,7 +11,7 @@ process fastqc {
     path "fastqc_reports/*", emit: fastqc_report
 
     // Use publishDir to save outputs in a specific directory
-    publishDir "results", mode: 'copy'
+    publishDir "${params.outdir}/", mode: 'copy'
 
     script:
     """

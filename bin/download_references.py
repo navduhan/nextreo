@@ -91,6 +91,7 @@ def download_top_hits_sequences(blast_results_file, output_file="all_sequences.f
                 print(f"Downloaded and saved sequence for {segment} ({subject_id})")
             else:
                 print(f"Failed to fetch sequence for {subject_id}")
+    return subject_id
 
 # Main function to parse arguments and call download function
 def main():
@@ -101,7 +102,9 @@ def main():
     args = parser.parse_args()
     
     # Download sequences for top hits
-    download_top_hits_sequences(args.blast_results_file, args.output_file)
+    sid = download_top_hits_sequences(args.blast_results_file, args.output_file)
+
+    print(sid)
 
 if __name__ == "__main__":
     main()
