@@ -23,15 +23,11 @@ process blastn_viruses {
         -outfmt '6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send qcovs evalue bitscore qlen slen stitle staxids sstrand' \\
         -num_threads ${task.cpus}
 
-    # Create output directory for processed results
-    mkdir -p ${id}_processed_results
-
     # Run Python script to process the BLAST results
     python3 ${projectDir}/bin/process_blast_results.py \\
         -b ${id}_viruses.txt \\
         -f ${fasta_file} \\
-        -o ${id}_processed_results \\
-        -p ${id}\\
+        -p ${id} \\
         -s viruses
     """
 }

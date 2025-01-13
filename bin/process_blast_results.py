@@ -51,7 +51,7 @@ def get_taxonomy_info(tax_id_str):
             print(f"Invalid tax ID: {tax_id}")
     return merged_taxonomy
 
-def process_blast_results(blast_file, fasta_file, output_dir, prefix, suffix):
+def process_blast_results(blast_file, fasta_file, prefix, suffix):
     """Process BLAST results and export them to Excel."""
     seqd = seq2dict(fasta_file)
     df = pd.read_csv(blast_file, sep="\t", names=col, low_memory=False)
@@ -86,11 +86,8 @@ def process_blast_results(blast_file, fasta_file, output_dir, prefix, suffix):
     # Sort by alignment length
     df_best_hits = df_best_hits.sort_values(by=['alignment_length'], ascending=False)
 
-    # Save the DataFrame to a single tab-delimited file
-    output_dir = Path(output_dir)
-    output_dir.mkdir(exist_ok=True)
 
-    output_file = output_dir / f"{prefix}_best_hits_{suffix}.xls"  # Save as .xls extension
+    output_file = f"{prefix}_best_hits_{suffix}.xls"  # Save as .xls extension
     df_best_hits.to_csv(output_file, sep="\t", index=False)
 
     print(f"Saved {output_file} with {len(df_best_hits)} rows.")
@@ -99,12 +96,11 @@ def main():
     parser = argparse.ArgumentParser(description="Process BLAST results and map sequences with taxonomy information.")
     parser.add_argument("-b", "--blast_file", required=True, help="Path to the BLAST results file.")
     parser.add_argument("-f", "--fasta_file", required=True, help="Path to the FASTA file.")
-    parser.add_argument("-o", "--output_dir", default="blast_results", help="Directory to save the output files.")
     parser.add_argument("-p", "--prefix", required=True, help="Prefix for output file names.")
     parser.add_argument("-s", "--suffix", required=True, help="Prefix for output file names.")
     args = parser.parse_args()
 
-    process_blast_results(args.blast_file, args.fasta_file, args.output_dir, args.prefix. args.suffix)
+    process_blast_results(args.blast_file, args.fasta_file,  args.prefix, args.suffix)
 
 if __name__ == "__main__":
     main()

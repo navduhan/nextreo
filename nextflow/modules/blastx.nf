@@ -28,7 +28,6 @@ process blastx {
     python3 ${projectDir}/bin/process_blast_results.py \\
         -b ${id}_nr.txt \\
         -f ${fasta_file} \\
-        -o ${id}_processed_results \\
         -p ${id} \\
         -s nr
     """

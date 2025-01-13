@@ -16,6 +16,8 @@ include {trimming} from "./nextflow/subworkflow/trimming"
 include {taxonomic_classification} from "./nextflow/subworkflow/taxonomic_classification"
 include {assembly} from "./nextflow/subworkflow/assembly"
 include {blast_annotation} from "./nextflow/subworkflow/blast_annotation.nf"
+include {consensus} from "./nextflow/subworkflow/consensus"
+include {annotation} from "./nextflow/subworkflow/annotation"
 // Validate input parameters
 // WorkflowNextreo.initialise(params, log)
 
@@ -42,10 +44,14 @@ workflow Nextreo {
     // Call the fastqc process with the combined channel
     fastqc(ch_reads1.join(ch_reads2))
     trimming(ch_reads1, ch_reads2)
-    // taxonomic_classification(ch_reads1, ch_reads2)
+    taxonomic_classification(ch_reads1, ch_reads2)
     assembly(trimming.out.clean_reads1, trimming.out.clean_reads2)
    
     blast_annotation(assembly.out.contigs)
+    consensus(ch_reads1, ch_reads2, blast_annotation.out.blastn_results_viruses)
+
+    annotation(consensus.out.consensus_genomes)
+
 
 }
 
