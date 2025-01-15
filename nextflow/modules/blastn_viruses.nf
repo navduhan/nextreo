@@ -24,7 +24,7 @@ process blastn_viruses {
         -num_threads ${task.cpus}
 
     # Run Python script to process the BLAST results
-    python3 ${projectDir}/bin/process_blast_results.py \\
+    python3 ${workflow.projectDir}/bin/process_blast_results.py \\
         -b ${id}_viruses.txt \\
         -f ${fasta_file} \\
         -p ${id} \\

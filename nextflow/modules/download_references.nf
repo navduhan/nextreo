@@ -9,6 +9,6 @@ process download_references {
     script:
     """  
     # Run the Python script to download the reference genomes
-    python3 ${projectDir}/bin/download_references.py -f ${blast_results} -o reference_genomes.fasta
+    python3 ${workflow.projectDir}/bin/download_references.py -f ${blast_results} -o reference_genomes.fasta
     """
 }

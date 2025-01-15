@@ -9,8 +9,8 @@ process trimmomatic {
         tuple val(id), path(reads1), path(reads2)
 
     output:
-        tuple val(id), path("trimmed_reads/${id}_1_trimmed.fastq.gz"), emit: "clean_reads1"
-        tuple val(id), path("trimmed_reads/${id}_2_trimmed.fastq.gz"), emit: "clean_reads2" // For paired-end reads
+        tuple val(id), path("trimmed_reads/${id}_1_trimmed.fastq.gz"), emit: clean_reads1
+        tuple val(id), path("trimmed_reads/${id}_2_trimmed.fastq.gz"), emit: clean_reads2 // For paired-end reads
 
     script:
     """

@@ -5,7 +5,7 @@ process metaspades {
         tuple val(id), path(reads1), path(reads2) 
 
     output:
-        tuple val(id), path("metaspades_results/${id}/${id}_contigs.fa"), emit: "contigs"
+        tuple val(id), path("metaspades_results/${id}/${id}_contigs.fa"), emit: contigs
 
     script:
     """

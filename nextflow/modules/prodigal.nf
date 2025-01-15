@@ -1,5 +1,9 @@
 process prodigal {
     // Define input and output channels
+
+     // Use publishDir to save outputs in a specific directory
+    publishDir "${params.outdir}/", mode: 'copy'
+    
     input:
         tuple val(id), path(genome)       // Path to the input genome file (FASTA)
     
@@ -8,8 +12,7 @@ process prodigal {
         tuple val(id), path("annotations/${id}/${id}-cds.fa"),   emit: cds     // Path to the CDS output file
         tuple val(id), path("annotations/${id}/${id}-aa.fa"),    emit: aa     // Path to the AA output file
     
-    // Use publishDir to save outputs in a specific directory
-    publishDir "results", mode: 'copy'
+   
     // Define the script block to run Prodigal
     script:
 

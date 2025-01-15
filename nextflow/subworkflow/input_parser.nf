@@ -59,9 +59,9 @@ workflow input_parser {
     }
 
 
-   // Split the main channel into separate channels for reads1, reads2, and contigs
-    reads1 = ch_input_rows.map { id, reads1, reads2_unused -> [id, reads1] }
-    reads2 = ch_input_rows.map { id, reads1_unused, reads2 -> [id, reads2] }
+   // Split the main channel into separate channels for reads1, reads2
+    reads1 = ch_input_rows.map { id, reads1, _reads2_unused -> [id, reads1] }
+    reads2 = ch_input_rows.map { id, _reads1_unused, reads2 -> [id, reads2] }
 
 
 

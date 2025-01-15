@@ -27,7 +27,7 @@ process blastn {
     mkdir -p ${id}_processed_results
 
     # Run Python script to process the BLAST results
-    python3 ${projectDir}/bin/process_blast_results.py \\
+    python3 ${workflow.projectDir}/bin/process_blast_results.py \\
         -b ${id}_nt.txt \\
         -f ${fasta_file} \\
         -p ${id} \\

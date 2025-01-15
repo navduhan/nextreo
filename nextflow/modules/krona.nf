@@ -9,7 +9,7 @@ process krona {
         tuple val(id), path(kraken_report) // Input: Kraken2 report file
 
     output:
-        tuple val(id), path("krona_results/${id}_krona.html"), emit: "krona_html"
+        tuple val(id), path("krona_results/${id}_krona.html"), emit: krona_html
 
     script:
     """
