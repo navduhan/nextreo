@@ -1,5 +1,6 @@
 process snippy {
 
+    tag "$id"
       // Use publishDir to save outputs in a specific directory
     publishDir "${params.outdir}/", mode: 'copy'
 

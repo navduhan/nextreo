@@ -2,8 +2,6 @@ include { snippy } from "../modules/snippy"
 include { download_references } from "../modules/download_references"
 
 
-
-
 workflow consensus {
 
     take:

@@ -69,8 +69,8 @@ workflow Nextreo {
         taxonomic_classification(ch_reads1, ch_reads2)
         assembly(trimming.out.clean_reads1, trimming.out.clean_reads2)
         blast_annotation(assembly.out.contigs)
-        consensus(ch_reads1, ch_reads2, blast_annotation.out.blastn_results_viruses)
-        annotation(consensus.out.consensus_genomes)
+        // consensus(ch_reads1, ch_reads2, blast_annotation.out.blastn_results_viruses)
+        // annotation(consensus.out.consensus_genomes)
 }
 
 

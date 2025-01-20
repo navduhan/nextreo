@@ -1,5 +1,6 @@
 process prodigal {
     // Define input and output channels
+    tag "$id"
 
      // Use publishDir to save outputs in a specific directory
     publishDir "${params.outdir}/", mode: 'copy'

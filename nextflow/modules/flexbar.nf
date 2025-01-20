@@ -1,5 +1,5 @@
 process flexbar{
-    // tag "$id"
+    tag "$id"
 
     label 'trimming'
 

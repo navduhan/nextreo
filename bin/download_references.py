@@ -19,6 +19,8 @@ mapping = {
     'muNS': 'M3',
     'segment S1': 'S1',
     'sigma C': 'S1',
+    'p10': 'S1',
+    'p17': 'S1',
     'segment S2': 'S2',
     'sigma A': 'S2',
     'segment S3': 'S3',
@@ -101,6 +103,7 @@ def main():
     
     args = parser.parse_args()
     
+  
     # Download sequences for top hits
     sid = download_top_hits_sequences(args.blast_results_file, args.output_file)
 

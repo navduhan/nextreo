@@ -54,7 +54,15 @@ def get_taxonomy_info(tax_id_str):
 def process_blast_results(blast_file, fasta_file, prefix, suffix):
     """Process BLAST results and export them to Excel."""
     seqd = seq2dict(fasta_file)
+
     df = pd.read_csv(blast_file, sep="\t", names=col, low_memory=False)
+
+    if df.empty:
+        output_file = f"{prefix}_best_hits_{suffix}.xls"
+        with open(output_file, 'w') as empty_file:
+            empty_file.write('')  # Write an empty file
+        print(f"BLAST results are empty. Saved empty file: {output_file}")
+        return
 
     # Map sequences and calculate sequence lengths
     df['sequence'] = df['query_id'].map(seqd)
@@ -74,6 +82,14 @@ def process_blast_results(blast_file, fasta_file, prefix, suffix):
     taxonomy_df = pd.json_normalize(taxonomy_info)
     df_best_hits = df_best_hits.join(taxonomy_df)
 
+    # Exit early if df_best_hits is empty
+    if df_best_hits.empty:
+        output_file = f"{prefix}_best_hits_{suffix}.xls"
+        with open(output_file, 'w') as empty_file:
+            empty_file.write('')  # Write an empty file
+        print(f"Filtered BLAST results are empty after taxonomy mapping. Saved empty file: {output_file}")
+        return
+
     # Select and reorder columns
     df_best_hits = df_best_hits[[
         'query_id', 'subject_id', 'percent_identity', 'alignment_length', 'mismatches',
@@ -86,11 +102,12 @@ def process_blast_results(blast_file, fasta_file, prefix, suffix):
     # Sort by alignment length
     df_best_hits = df_best_hits.sort_values(by=['alignment_length'], ascending=False)
 
-
+    # Save the processed results to a file
     output_file = f"{prefix}_best_hits_{suffix}.xls"  # Save as .xls extension
     df_best_hits.to_csv(output_file, sep="\t", index=False)
 
     print(f"Saved {output_file} with {len(df_best_hits)} rows.")
+
 
 def main():
     parser = argparse.ArgumentParser(description="Process BLAST results and map sequences with taxonomy information.")

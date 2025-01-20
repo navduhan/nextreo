@@ -1,5 +1,6 @@
 process extract_segments {
     tag "$id"
+    label 'blast'
 
     publishDir "${params.outdir}/", mode: 'copy'
 
@@ -18,11 +19,11 @@ process extract_segments {
     # Run BLAST search
     diamond blastx \
         --query ${cds} \
-        --db ${params.blastdb_nr} \
+        --db ${params.diamonddb} \
         --out ${id}_nr.txt \
         --max-target-seqs 1 \
-        --outfmt '6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send qcovs evalue bitscore qlen slen stitle staxids qstrand' \
-        --num_threads ${task.cpus}
+        --outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send qcovhsp evalue bitscore qlen slen stitle staxids qstrand \
+        --threads ${task.cpus}
 
     python3 ${workflow.projectDir}/bin/get_cds_seqs.py -f ${cds} -b ${id}_nr.txt -o ${id}_nr_cds.fasta
 

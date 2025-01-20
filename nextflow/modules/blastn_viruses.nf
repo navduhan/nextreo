@@ -8,7 +8,7 @@ process blastn_viruses {
         tuple val(id), path(fasta_file) //, path(blastdb)
 
     output:
-        path "${id}_best_hits_viruses.xls", emit: formatted_blast_output // Emit only Excel files
+        tuple val(id), path("${id}_best_hits_viruses.xls"), emit: formatted_blast_output // Emit only Excel files
 
     script:
     """

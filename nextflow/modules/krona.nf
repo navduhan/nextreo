@@ -1,5 +1,5 @@
 process krona {
-    // tag "$id" // Tag each task with the sample ID
+    tag "$id" // Tag each task with the sample ID
 
     label 'kraken2' // Assign a label for resource management if needed
 

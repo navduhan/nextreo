@@ -1,7 +1,7 @@
 // Author: Naveen Duhan
 
 process fastqc {
-    // tag "$id"
+    tag "$id"
     label 'fastqc'
 
     // Use publishDir to save outputs in a specific directory
