@@ -18,10 +18,10 @@ process trim_galore {
 
     if ([ -n "${reads2}" ]); then
         # Paired-end reads
-        trim_galore --paired --quality ${params.quality} --cores ${task.cpus} --output_dir trimmed_reads ${reads1} ${reads2}
+        trim_galore --paired --quality ${params.quality} --cores ${task.cpus} --basenmae ${id} --output_dir trimmed_reads ${reads1} ${reads2}
     else
         # Single-end reads
-        trim_galore --quality ${params.quality} --cores ${task.cpus} --output_dir trimmed_reads ${reads1}
+        trim_galore --quality ${params.quality} --cores ${task.cpus} --basenmae ${id} --output_dir trimmed_reads ${reads1}
     fi
     """
 }
